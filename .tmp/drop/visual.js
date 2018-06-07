@@ -14960,31 +14960,6 @@ var powerbi;
         })(visual = extensibility.visual || (extensibility.visual = {}));
     })(extensibility = powerbi.extensibility || (powerbi.extensibility = {}));
 })(powerbi || (powerbi = {}));
-/*
- *  Power BI Visual CLI
- *
- *  Copyright (c) Microsoft Corporation
- *  All rights reserved.
- *  MIT License
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the ""Software""), to deal
- *  in the Software without restriction, including without limitation the rights
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- *  THE SOFTWARE.
- */
 var powerbi;
 (function (powerbi) {
     var extensibility;
@@ -14996,9 +14971,6 @@ var powerbi;
                 "use strict";
                 var Visual = (function () {
                     function Visual(options) {
-                        this.temp_max = [279.946, 282.597, 280.15];
-                        this.temp_min = [279.946, 282.597, 278.15];
-                        this.allDates = [1485717216, 1485745061, 1485768552];
                         console.log('Visual constructor', options);
                         this.target = options.element;
                         this.updateCount = 0;
@@ -15007,17 +14979,11 @@ var powerbi;
                             var can = document.createElement("canvas");
                             can.setAttribute("id", "canvasId");
                             new_p.appendChild(can);
-                            new_p.appendChild(document.createTextNode("Update count:"));
-                            var new_em = document.createElement("em");
-                            this.textNode = document.createTextNode(this.updateCount.toString());
-                            new_em.appendChild(this.textNode);
-                            new_p.appendChild(new_em);
                             this.target.appendChild(new_p);
                         }
                     }
                     Visual.prototype.update = function (options) {
                         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
-                        console.log(options.dataViews[0].table.rows);
                         var data = options.dataViews[0].table.rows;
                         var country = [];
                         var value = [];
@@ -15025,16 +14991,7 @@ var powerbi;
                             country.push(d[0]);
                             value.push(d[1]);
                         });
-                        console.log('--------------');
-                        console.log(country);
-                        console.log(value);
-                        var weatherDates = [];
-                        this.allDates.forEach(function (eachDate) {
-                            var jsDate = new Date(eachDate * 1000);
-                            weatherDates.push(jsDate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }));
-                        });
                         var d = window.Chart;
-                        //let ctx = document.getElementById("canvasId");
                         var chart = new d('canvasId', {
                             type: 'line',
                             data: {
@@ -15061,19 +15018,10 @@ var powerbi;
                                 }
                             }
                         });
-                        console.log('Visual update', options);
-                        if (typeof this.textNode !== "undefined") {
-                            this.textNode.textContent = (this.updateCount++).toString();
-                        }
                     };
                     Visual.parseSettings = function (dataView) {
                         return linechart2722B7D3FF8B443E382E3AD83079C217E.VisualSettings.parse(dataView);
                     };
-                    /**
-                     * This function gets called for each of the objects defined in the capabilities files and allows you to select which of the
-                     * objects and properties you want to expose to the users in the property pane.
-                     *
-                     */
                     Visual.prototype.enumerateObjectInstances = function (options) {
                         return linechart2722B7D3FF8B443E382E3AD83079C217E.VisualSettings.enumerateObjectInstances(this.settings || linechart2722B7D3FF8B443E382E3AD83079C217E.VisualSettings.getDefault(), options);
                     };
