@@ -1,0 +1,8 @@
+{
+  "name": "visual",
+  "dependencies": {
+    "@types/chart.js": "^2.7.14",
+    "chart.js": "^2.7.2",
+    "powerbi-visuals-utils-dataviewutils": "1.2.0"
+  }
+}
